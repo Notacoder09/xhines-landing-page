@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const calendarURL = "PASTE_YOUR_GHL_CALENDAR_WIDGET_URL_HERE";
+const calendarURL = "https://services.leadconnectorhq.com/hooks/0wjtRiT7deYSBW5zbR8n/webhook-trigger/0bbf8da6-8e5b-4469-95f8-114ee7208002";
 
 export default function ThankYouPage() {
   return (
