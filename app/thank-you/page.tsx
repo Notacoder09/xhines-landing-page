@@ -44,8 +44,9 @@ export default function ThankYouPage() {
             src={calendarURL}
             title="Book your free 15-minute call"
             loading="lazy"
-            scrolling="no"
-            className="mx-auto block h-[500px] w-full max-w-[700px] border-0 sm:h-[700px]"
+            scrolling="yes"
+            className="mx-auto block h-[700px] w-full max-w-[700px] border-0 sm:h-[900px]"
+            style={{ overflow: "auto" }}
             allow="payment; camera; microphone; fullscreen"
           />
         </div>
