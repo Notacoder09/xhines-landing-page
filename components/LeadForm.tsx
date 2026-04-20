@@ -3,7 +3,8 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
-const webhookURL = "PASTE_YOUR_GHL_WEBHOOK_URL_HERE";
+const webhookURL =
+  "https://services.leadconnectorhq.com/hooks/0wjtRiT7deYSBW5zbR8n/webhook-trigger/0bbf8da6-8e5b-4469-95f8-114ee7208002";
 
 const TRADES = [
   "Roofing",
@@ -34,7 +35,6 @@ export default function LeadForm() {
   const router = useRouter();
   const [formData, setFormData] = useState<FormState>(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -46,33 +46,30 @@ export default function LeadForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitting) return;
-    setError(null);
     setIsSubmitting(true);
 
+    const payload = JSON.stringify({
+      name: formData.name,
+      phone: formData.phone,
+      trade: formData.trade,
+      city: formData.city,
+    });
+
     try {
-      const response = await fetch(webhookURL, {
+      // no-cors: GHL webhook doesn't return CORS headers, so the response
+      // is opaque and we can't read its status. The POST still reaches GHL.
+      await fetch(webhookURL, {
         method: "POST",
+        mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          phone: formData.phone,
-          trade: formData.trade,
-          city: formData.city,
-        }),
+        body: payload,
       });
-
-      if (!response.ok) {
-        throw new Error(`Request failed: ${response.status}`);
-      }
-
-      router.push("/thank-you");
     } catch (err) {
-      console.error(err);
-      setError(
-        "Something went wrong sending your info. Please try again or call us directly."
-      );
-      setIsSubmitting(false);
+      // Only a true network failure (offline) hits this branch.
+      console.error("Lead webhook error:", err);
     }
+
+    router.push("/thank-you");
   };
 
   return (
@@ -136,15 +133,6 @@ export default function LeadForm() {
                 required
               />
             </div>
-
-            {error && (
-              <p
-                role="alert"
-                className="mt-5 rounded-md border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300"
-              >
-                {error}
-              </p>
-            )}
 
             <button
               type="submit"
