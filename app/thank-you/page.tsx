@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const calendarURL = "https://services.leadconnectorhq.com/hooks/0wjtRiT7deYSBW5zbR8n/webhook-trigger/0bbf8da6-8e5b-4469-95f8-114ee7208002";
+const calendarURL =
+  "https://api.leadconnectorhq.com/widget/booking/GspyDoJoERI96l97tGCh";
 
 export default function ThankYouPage() {
   return (
@@ -39,19 +40,14 @@ export default function ThankYouPage() {
 
       <section className="section">
         <div className="container-tight">
-          <div className="overflow-hidden rounded-2xl border border-line bg-bgElev">
-            <iframe
-              src={calendarURL}
-              title="Book your free 15-minute call"
-              loading="lazy"
-              className="block h-[700px] w-full border-0 sm:h-[780px]"
-              allow="payment; camera; microphone; fullscreen"
-            />
-          </div>
-
-          <p className="mt-6 text-center text-sm text-muted">
-            Trouble loading the calendar? Refresh the page or try a different browser.
-          </p>
+          <iframe
+            src={calendarURL}
+            title="Book your free 15-minute call"
+            loading="lazy"
+            scrolling="no"
+            className="mx-auto block h-[500px] w-full max-w-[700px] border-0 sm:h-[700px]"
+            allow="payment; camera; microphone; fullscreen"
+          />
         </div>
       </section>
 
