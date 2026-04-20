@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  background-color: #0a0a0a;
+  color: #f5f5f5;
+  font-family: var(--font-dm-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #ff6b00;
+  color: #0a0a0a;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-accent px-7 py-4 font-heading text-lg font-semibold uppercase tracking-wider text-black transition-all duration-150 hover:bg-accentHover hover:shadow-glow active:scale-[0.98] sm:text-xl;
+  }
+
+  .section {
+    @apply px-5 py-16 sm:px-8 sm:py-24;
+  }
+
+  .container-tight {
+    @apply mx-auto w-full max-w-5xl;
+  }
+
+  .eyebrow {
+    @apply mb-3 inline-block font-heading text-sm font-semibold uppercase tracking-[0.2em] text-accent;
+  }
+
+  .h1 {
+    @apply font-heading text-4xl font-bold uppercase leading-[1.02] tracking-tight text-ink sm:text-6xl md:text-7xl;
+  }
+
+  .h2 {
+    @apply font-heading text-3xl font-bold uppercase leading-[1.05] tracking-tight text-ink sm:text-5xl;
+  }
+
+  .lead {
+    @apply text-lg leading-relaxed text-muted sm:text-xl;
+  }
+}
