@@ -3,9 +3,6 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
-const webhookURL =
-  "https://services.leadconnectorhq.com/hooks/0wjtRiT7deYSBW5zbR8n/webhook-trigger/0bbf8da6-8e5b-4469-95f8-114ee7208002";
-
 const TRADES = [
   "Roofing",
   "HVAC",
@@ -56,17 +53,13 @@ export default function LeadForm() {
     });
 
     try {
-      // no-cors: GHL webhook doesn't return CORS headers, so the response
-      // is opaque and we can't read its status. The POST still reaches GHL.
-      await fetch(webhookURL, {
+      await fetch("/api/submit", {
         method: "POST",
-        mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: payload,
       });
     } catch (err) {
-      // Only a true network failure (offline) hits this branch.
-      console.error("Lead webhook error:", err);
+      console.error("Lead submission error:", err);
     }
 
     router.push("/thank-you");
