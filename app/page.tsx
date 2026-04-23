@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import WhatYouGet from "@/components/WhatYouGet";
@@ -12,7 +13,9 @@ export default function HomePage() {
       <Problem />
       <WhatYouGet />
       <SocialProof />
-      <LeadForm />
+      <Suspense>
+        <LeadForm />
+      </Suspense>
       <FinalCTA />
     </main>
   );
